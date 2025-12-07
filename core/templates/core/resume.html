@@ -1,0 +1,69 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+            My Resume
+        </h1>
+        <p class="mt-5 max-w-xl mx-auto text-xl text-gray-500">
+            A timeline of my professional experience.
+        </p>
+    </div>
+
+    <div class="flow-root">
+        <ul role="list" class="-mb-8">
+            {% for job in experiences %}
+            <li>
+                <div class="relative pb-8">
+                    {% if not forloop.last %}
+                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                    {% endif %}
+                    <div class="relative flex space-x-3">
+                        <div>
+                            <span
+                                class="h-8 w-8 rounded-full bg-primary flex items-center justify-center ring-8 ring-white">
+                                <!-- Heroicon name: solid/briefcase -->
+                                <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                                        clip-rule="evenodd" />
+                                    <path
+                                        d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.435-.46-7.923-1.308z" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900">{{ job.role }}</h3>
+                                <p class="text-sm font-medium text-gray-600">{{ job.company }}</p>
+                                <div class="mt-2 text-sm text-gray-700">
+                                    <ul class="list-disc pl-5 space-y-1">
+                                        {% for bullet in job.description_bullets %}
+                                        <li>{{ bullet }}</li>
+                                        {% empty %}
+                                        <li>{{ job.description_bullets }}</li> <!-- Fallback if string -->
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                <time datetime="{{ job.start_date|date:'Y-m-d' }}">{{ job.start_date|date:"M Y"
+                                    }}</time>
+                                -
+                                {% if job.end_date %}
+                                <time datetime="{{ job.end_date|date:'Y-m-d' }}">{{ job.end_date|date:"M Y" }}</time>
+                                {% else %}
+                                Present
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

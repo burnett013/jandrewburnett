@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="bg-white overflow-hidden shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:px-6">
+        <h1 class="text-3xl font-bold leading-tight text-gray-900">
+            Welcome, I'm Andy.
+        </h1>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+            Data Analyst | AI & Business Analytics Candidate | Python Developer
+        </p>
+    </div>
+    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+        <div class="p-6">
+            <p class="text-lg text-gray-700 mb-4">
+                I build data pipelines, dashboards, and scalable Python applications.
+            </p>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="border rounded p-4 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold mb-2">Projects</h3>
+                    {% for project in projects %}
+                    <div class="mb-3">
+                        <a href="{{ project.link|default:'#' }}" class="text-secondary font-semibold hover:underline">{{
+                            project.name }}</a>
+                        <p class="text-gray-600 text-sm">{{ project.description }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500">Projects loading soon...</p>
+                    {% endfor %}
+                </div>
+                <div class="border rounded p-4 shadow-sm hover:shadow-md transition">
+                    <h3 class="text-xl font-bold mb-2">Latest Thoughts</h3>
+                    {% for post in recent_posts %}
+                    <div class="mb-2">
+                        <a href="#" class="text-secondary hover:underline">{{ post.title }}</a>
+                        <span class="text-gray-400 text-xs block">{{ post.published_date|date:"M d, Y" }}</span>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-500">No posts yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="mt-6">
+                <a href="{% url 'resume' %}"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    View My Resume
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
