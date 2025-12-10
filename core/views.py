@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
-from .models import Experience, Project, BlogPost
+from .models import Project, Experience, BlogPost
 
 class HomeView(TemplateView):
     template_name = "core/home.html"
@@ -10,6 +10,11 @@ class HomeView(TemplateView):
         context['projects'] = Project.objects.all()[:3]
         context['recent_posts'] = BlogPost.objects.order_by('-published_date')[:3]
         return context
+
+class ProjectListView(ListView):
+    model = Project
+    template_name = "core/project_list.html"
+    context_object_name = "projects"
 
 class ResumeView(ListView):
     model = Experience

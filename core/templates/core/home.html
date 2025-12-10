@@ -1,18 +1,23 @@
 {% extends 'core/base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="bg-white overflow-hidden shadow sm:rounded-lg">
-    <div class="px-4 py-5 sm:px-6">
-        <h1 class="text-3xl font-bold leading-tight text-gray-900">
-            Welcome, I'm Andy.
-        </h1>
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">
-            Data Analyst | AI & Business Analytics Candidate | Python Developer
-        </p>
+<div class="bg-app-surface overflow-hidden shadow sm:rounded-lg border border-app-border">
+    <div class="px-4 py-5 sm:px-6 flex items-center space-x-6">
+        <img class="h-24 w-24 rounded-full border-2 border-app-accent object-cover"
+            src="{% static 'core/images/profile.jpg' %}" alt="Andy Burnett">
+        <div>
+            <h1 class="text-3xl font-bold leading-tight text-app-text-main">
+                Welcome, I'm Andy.
+            </h1>
+            <p class="mt-1 max-w-2xl text-sm text-app-text-muted">
+                Data Analyst | AI & Business Analytics Guru | Python Fanboy
+            </p>
+        </div>
     </div>
-    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <div class="border-t border-app-border px-4 py-5 sm:p-0">
         <div class="p-6">
-            <div class="prose max-w-none text-gray-700 mb-8">
+            <div class="prose max-w-none text-app-text-main mb-8">
                 <p class="text-lg mb-6">
                     🎓 I recently earned my <strong>M.S. in Artificial Intelligence and Business Analytics (3.8
                         GPA)</strong>
@@ -22,7 +27,7 @@
                     insights, strategy, and systems that make a difference.
                 </p>
 
-                <h3 class="text-xl font-bold text-gray-900 mb-2">💡 Who I Am</h3>
+                <h3 class="text-xl font-bold text-app-text-main mb-2">💡 Who I Am</h3>
                 <p class="mb-6">
                     I’m someone who finds energy in solving complex problems and making sense of data. My approach to
                     analytics
@@ -32,7 +37,7 @@
                     miss.
                 </p>
 
-                <h3 class="text-xl font-bold text-gray-900 mb-2">⚙️ Values and Perspective</h3>
+                <h3 class="text-xl font-bold text-app-text-main mb-2">⚙️ Values and Perspective</h3>
                 <p class="mb-6">
                     My path has been anything but ordinary. As a <strong>former Army combat medic</strong>, I learned to
                     stay
@@ -43,7 +48,7 @@
                     resilience, clarity, and commitment.
                 </p>
 
-                <h3 class="text-xl font-bold text-gray-900 mb-2">🌍 What Drives Me</h3>
+                <h3 class="text-xl font-bold text-app-text-main mb-2">🌍 What Drives Me</h3>
                 <p class="mb-6">
                     What motivates me most is the opportunity to do work that matters — blending data, design, and
                     decision-making
@@ -53,33 +58,33 @@
                 </p>
             </div>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div class="border rounded p-4 shadow-sm hover:shadow-md transition">
-                    <h3 class="text-xl font-bold mb-2">Projects</h3>
+                <div class="border border-app-border rounded p-4 shadow-sm hover:shadow-md transition bg-app-bg">
+                    <h3 class="text-xl font-bold mb-2 text-app-text-main">Projects</h3>
                     {% for project in projects %}
                     <div class="mb-3">
-                        <a href="{{ project.link|default:'#' }}" class="text-secondary font-semibold hover:underline">{{
-                            project.name }}</a>
-                        <p class="text-gray-600 text-sm">{{ project.description }}</p>
+                        <a href="{{ project.link|default:'#' }}"
+                            class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{ project.name }}</a>
+                        <p class="text-app-text-muted text-sm">{{ project.description }}</p>
                     </div>
                     {% empty %}
-                    <p class="text-gray-500">Projects loading soon...</p>
+                    <p class="text-app-text-muted">Projects loading soon...</p>
                     {% endfor %}
                 </div>
-                <div class="border rounded p-4 shadow-sm hover:shadow-md transition">
-                    <h3 class="text-xl font-bold mb-2">Latest Thoughts</h3>
+                <div class="border border-app-border rounded p-4 shadow-sm hover:shadow-md transition bg-app-bg">
+                    <h3 class="text-xl font-bold mb-2 text-app-text-main">Latest Thoughts</h3>
                     {% for post in recent_posts %}
                     <div class="mb-2">
-                        <a href="#" class="text-secondary hover:underline">{{ post.title }}</a>
-                        <span class="text-gray-400 text-xs block">{{ post.published_date|date:"M d, Y" }}</span>
+                        <a href="#" class="text-app-accent hover:text-app-accent-hover hover:underline">{{ post.title }}</a>
+                        <span class="text-app-text-muted text-xs block">{{ post.published_date|date:"M d, Y" }}</span>
                     </div>
                     {% empty %}
-                    <p class="text-gray-500">No posts yet.</p>
+                    <p class="text-app-text-muted">No posts yet.</p>
                     {% endfor %}
                 </div>
             </div>
             <div class="mt-6">
                 <a href="{% url 'resume' %}"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-app-text-main bg-app-accent hover:bg-app-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-app-accent">
                     View My Resume
                 </a>
             </div>

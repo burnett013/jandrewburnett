@@ -3,10 +3,10 @@
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <div class="text-center mb-10">
-        <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+        <h1 class="text-4xl font-extrabold text-app-text-main sm:text-5xl sm:tracking-tight lg:text-6xl">
             My Resume and Experiences
         </h1>
-        <p class="mt-5 max-w-xl mx-auto text-xl text-gray-500">
+        <p class="mt-5 max-w-xl mx-auto text-xl text-app-text-muted">
             A timeline of my professional experience.
         </p>
     </div>
@@ -17,15 +17,15 @@
             <li>
                 <div class="relative pb-8">
                     {% if not forloop.last %}
-                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-app-border" aria-hidden="true"></span>
                     {% endif %}
                     <div class="relative flex space-x-3">
                         <div>
                             <span
-                                class="h-8 w-8 rounded-full bg-primary flex items-center justify-center ring-8 ring-white">
+                                class="h-8 w-8 rounded-full bg-app-accent flex items-center justify-center ring-8 ring-app-bg">
                                 <!-- Heroicon name: solid/briefcase -->
-                                <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                    fill="currentColor" aria-hidden="true">
+                                <svg class="h-5 w-5 text-app-text-main" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd"
                                         d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
                                         clip-rule="evenodd" />
@@ -36,9 +36,9 @@
                         </div>
                         <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
                             <div>
-                                <h3 class="text-lg font-bold text-gray-900">{{ job.role }}</h3>
-                                <p class="text-sm font-medium text-gray-600">{{ job.company }}</p>
-                                <div class="mt-2 text-sm text-gray-700">
+                                <h3 class="text-lg font-bold text-app-text-main">{{ job.role }}</h3>
+                                <p class="text-sm font-medium text-app-accent">{{ job.company }}</p>
+                                <div class="mt-2 text-sm text-app-text-main">
                                     <ul class="list-disc pl-5 space-y-1">
                                         {% for bullet in job.description_bullets %}
                                         <li>{{ bullet }}</li>
@@ -48,9 +48,8 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="text-right text-sm whitespace-nowrap text-gray-500">
-                                <time datetime="{{ job.start_date|date:'Y-m-d' }}">{{ job.start_date|date:"M Y"
-                                    }}</time>
+                            <div class="text-right text-sm whitespace-nowrap text-app-text-muted">
+                                <time datetime="{{ job.start_date|date:'Y-m-d' }}">{{ job.start_date|date:"M Y" }}</time>
                                 -
                                 {% if job.end_date %}
                                 <time datetime="{{ job.end_date|date:'Y-m-d' }}">{{ job.end_date|date:"M Y" }}</time>

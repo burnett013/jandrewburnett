@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,27 +11,42 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1e3a8a', // Python Blue-ish
-                        secondary: '#3b82f6',
+                        primary: '#1e3a8a', // Keeping legacy primary for safety
+                        'app-bg': '#1A1A1A',
+                        'app-surface': '#262626',
+                        'app-text-main': '#F2F2F2',
+                        'app-text-muted': '#A8A8A8',
+                        'app-accent': '#F54927',
+                        'app-accent-hover': '#C2381E',
+                        'app-border': '#3A3A3A',
+                        'app-success': '#3CCF91',
+                        'app-danger': '#E63946',
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
 
-    <nav class="bg-white shadow-sm">
+<body class="bg-app-bg text-app-text-main font-sans flex flex-col min-h-screen">
+
+    <nav class="bg-app-surface shadow-sm border-b border-app-border">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
-                    <a href="{% url 'home' %}" class="flex-shrink-0 flex items-center font-bold text-2xl text-primary">
+                    <a href="{% url 'home' %}"
+                        class="flex-shrink-0 flex items-center font-bold text-2xl text-app-accent">
                         AB
                     </a>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <a href="{% url 'home' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
-                        <a href="{% url 'resume' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Resume</a>
-                        <a href="{% url 'blog_list' %}" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Blog</a>
+                        <a href="{% url 'home' %}"
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                        <a href="{% url 'resume' %}"
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Resume</a>
+                        <a href="{% url 'project_list' %}"
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Projects</a>
+                        <a href="{% url 'blog_list' %}"
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Blog</a>
                     </div>
                 </div>
             </div>
@@ -42,11 +58,13 @@
         {% endblock %}
     </main>
 
-    <footer class="bg-white border-t mt-auto">
+    <footer class="bg-app-surface border-t border-app-border mt-auto">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-gray-500 text-sm">© {% now "Y" %} Andy Burnett. Built with Django & Tailwind.</p>
+            <p class="text-center text-app-text-muted text-sm">© {% now "Y" %} Andy Burnett. Built with Django &
+                Tailwind.</p>
         </div>
     </footer>
 
 </body>
+
 </html>

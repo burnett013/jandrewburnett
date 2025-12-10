@@ -23,8 +23,14 @@ def health(request):
     return HttpResponse("ok")
 
 
+from django.conf import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("health/", health),       # <-- added here
+    path("health/", health),
     path("", include("core.urls")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
