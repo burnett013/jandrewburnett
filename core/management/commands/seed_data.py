@@ -9,20 +9,29 @@ class Command(BaseCommand):
         self.stdout.write('Seeding data...')
 
         # Projects
+        p0, created = Project.objects.get_or_create(
+            name="AI-Powered Catalog Comparison",
+            defaults={
+                "tech_stack": ["Python", "Streamlit", "Gemini API"],
+                "description": "Built an AI-powered catalog comparison system that uses Gemini 3 Pro to extract and interpret program listings. Reduces manual reconciliation by weeks and improves reporting consistency.",
+                "link": "#"
+            }
+        )
+
         p1, created = Project.objects.get_or_create(
-            name="FAA Registration Dataset",
+            name="FAA Full Dataset (300k+ rows)",
             defaults={
                 "tech_stack": ["Python", "Pandas", "SQL"],
-                "description": "Processed and analyzed the massive FAA aircraft registration database to identify trends in drone ownership.",
+                "description": "Sourced, cleaned, and structured a national dataset containing every registered aircraft in the U.S., building the foundation for advanced aviation analytics.",
                 "link": "https://github.com/jandrewburnett/faa-analysis"
             }
         )
         
         p2, created = Project.objects.get_or_create(
-            name="Kits Subset Pipeline",
+            name="FAA Kits Dataset App",
             defaults={
-                "tech_stack": ["Docker", "FastAPI", "Streamlit"],
-                "description": "End-to-end data pipeline for managing and sub-setting large kit datasets for manufacturing.",
+                "tech_stack": ["FastAPI", "PostgreSQL", "Streamlit"],
+                "description": "Created a refined dataset of kit-built aircraft and developed a full-stack application combining database design, data analysis, and visualization.",
             }
         )
 
