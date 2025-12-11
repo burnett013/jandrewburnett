@@ -62,8 +62,9 @@
                     <h3 class="text-xl font-bold mb-2 text-app-text-main">Projects</h3>
                     {% for project in projects %}
                     <div class="mb-3">
-                        <a href="{{ project.link|default:'#' }}"
-                            class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{ project.name }}</a>
+                        <a href="{% url 'project_list' %}#project-{{ project.id }}"
+                            class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{
+                            project.name }}</a>
                         <p class="text-app-text-muted text-sm">{{ project.description }}</p>
                     </div>
                     {% empty %}
@@ -74,7 +75,8 @@
                     <h3 class="text-xl font-bold mb-2 text-app-text-main">Latest Thoughts</h3>
                     {% for post in recent_posts %}
                     <div class="mb-2">
-                        <a href="#" class="text-app-accent hover:text-app-accent-hover hover:underline">{{ post.title }}</a>
+                        <a href="#" class="text-app-accent hover:text-app-accent-hover hover:underline">{{ post.title
+                            }}</a>
                         <span class="text-app-text-muted text-xs block">{{ post.published_date|date:"M d, Y" }}</span>
                     </div>
                     {% empty %}
