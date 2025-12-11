@@ -20,7 +20,7 @@ class Command(BaseCommand):
                     "Reduces manual reconciliation by weeks and improves "
                     "reporting consistency."
                 ),
-                "link": "#",
+                "link": "https://github.com/burnett013/ovs_reporting_v2",
             },
         )
 
@@ -38,17 +38,24 @@ class Command(BaseCommand):
         )
 
         Project.objects.update_or_create(
-            name="FAA Kits Dataset App",
+            name="Nursing Workforce Data Dashboard",
             defaults={
-                "tech_stack": ["FastAPI", "PostgreSQL", "Streamlit"],
+                "tech_stack": ["FastAPI", "SQLite", "Streamlit"],
                 "description": (
-                    "Created a refined dataset of kit-built aircraft and "
-                    "developed a full-stack application combining database "
-                    "design, data analysis, and visualization."
+                    "A full-stack analytics dashboard that processes the 2022 "
+                    "National Sample Survey of Registered Nurses to visualize "
+                    "key workforce trends in burnout, earnings, and telehealth "
+                    "adoption."
                 ),
-                "link": "",  # or a URL later
+                "link": "https://github.com/burnett013/nssrn",
             },
         )
+
+        # Cleanup old project if it exists (optional but good for cleanliness)
+        try:
+            Project.objects.get(name="FAA Kits Dataset App").delete()
+        except Project.DoesNotExist:
+            pass
 
         Project.objects.update_or_create(
             name="General Aviation Sales Data",
