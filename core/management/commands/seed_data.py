@@ -50,6 +50,40 @@ class Command(BaseCommand):
             },
         )
 
+        Project.objects.update_or_create(
+            name="General Aviation Sales Data",
+            defaults={
+                "tech_stack": ["Python", "Pandas", "Excel"],
+                "description": (
+                    "Processed and analyzed the massive FAA aircraft registration "
+                    "database to identify trends in sales data among general "
+                    "aviation. Finished with a straightforward Excel dashboard "
+                    "for evaluating sales trends among the dataset."
+                ),
+                "link": "https://github.com/burnett013/ga_sales_data",
+            },
+        )
+
+        Project.objects.update_or_create(
+            name="FAA Kit-built Aircraft Subset",
+            defaults={
+                "tech_stack": [
+                    "Docker",
+                    "FastAPI",
+                    "Jupyter Notebook",
+                    "Python",
+                    "Streamlit",
+                    "Excel",
+                ],
+                "description": (
+                    "End-to-end data pipeline for managing and sub-setting "
+                    "large datasets, focusing on kit-built aircraft registered "
+                    "in the US"
+                ),
+                "link": "https://github.com/burnett013/faa_kit_aircraft_main",
+            },
+        )
+
         # ---------- Experience ----------
         Experience.objects.update_or_create(
             role="Special Projects Analyst",
