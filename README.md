@@ -12,6 +12,13 @@ A professional portfolio website built with Python and Django, styled with Tailw
 *   **Static Files:** WhiteNoise
 *   **Hosting:** Railway
 
+## 📜 Development History
+
+This project was initially developed using **SQLite** for rapid prototyping and local testing. As the application matured and was prepared for deployment, it was migrated to **PostgreSQL** for production on Railway to ensure scalability and reliability.
+
+*   **Development Phase:** SQLite (Lightweight, file-based, easy setup)
+*   **Production Phase:** PostgreSQL (Robust, scalable, production-grade)
+
 ## 🛠️ Setup & Local Development
 
 1.  **Clone the repository:**
