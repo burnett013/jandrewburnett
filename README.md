@@ -72,9 +72,9 @@ Whenever you modify `core/management/commands/seed_data.py` (e.g., adding a new 
 2.  **Wait for the deployment** to finish on Railway (check the "Deployments" tab).
 
 3.  **Run the seed command on production:**
-    You can do this via the [Railway Dashboard](https://railway.app) (Service -> Shell) or using the Railway CLI:
+    You can do this in Railway by selecting and right-clicking the Postgres service, selecting "Copy SSH Command." Lastly, paste the following command into the terminal to run the seed command on production:
     ```bash
-    railway run python manage.py seed_data
+    python manage.py seed_data
     ```
 
 ## 📂 Project Structure
