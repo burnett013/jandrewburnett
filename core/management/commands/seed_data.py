@@ -33,7 +33,7 @@ class Command(BaseCommand):
                     "containing every registered aircraft in the U.S., "
                     "building the foundation for advanced aviation analytics."
                 ),
-                "link": "https://github.com/jandrewburnett/faa-analysis",
+                "link": "https://github.com/burnett013/faa_analysis",  # Corrected username/repo guess
             },
         )
 
