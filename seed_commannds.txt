@@ -1,0 +1,5 @@
+SSH Command
+railway ssh --project=64ee2761-3254-419e-983c-f05d16671f5a --environment=1e2b2a4b-69b0-4053-a4d0-4b7974ebede1 --service=5c2c14bc-6889-48e5-ab58-33081a45228d
+
+Seed command
+python manage.py seed_data
