@@ -9,14 +9,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Seeding data...')
 
-        # ---------- Projects ----------
+        # ---------- Projects Page ----------
+        # Repo name: ovs_reporting_v2
         Project.objects.update_or_create(
             name="AI-Powered Catalog Comparison",
             defaults={
                 "tech_stack": ["Python", "Streamlit", "Gemini API"],
                 "description": (
                     "Built an AI-powered catalog comparison system that uses "
-                    "Gemini 3 Pro to extract and interpret program listings. "
+                    "Gemini models to extract and interpret program listings. "
                     "Reduces manual reconciliation by weeks and improves "
                     "reporting consistency."
                 ),
@@ -24,6 +25,7 @@ class Command(BaseCommand):
             },
         )
 
+        # Repo name: faa_data
         Project.objects.update_or_create(
             name="FAA Full Dataset (300k+ rows)",
             defaults={
@@ -33,10 +35,11 @@ class Command(BaseCommand):
                     "containing every registered aircraft in the U.S., "
                     "building the foundation for advanced aviation analytics."
                 ),
-                "link": "https://github.com/burnett013/faa_analysis",  # Corrected username/repo guess
+                "link": "https://github.com/burnett013/faa_data",
             },
         )
 
+        # Repo name: nssrn
         Project.objects.update_or_create(
             name="Nursing Workforce Data Dashboard",
             defaults={
@@ -51,26 +54,7 @@ class Command(BaseCommand):
             },
         )
 
-        # Cleanup old project if it exists (optional but good for cleanliness)
-        try:
-            Project.objects.get(name="FAA Kits Dataset App").delete()
-        except Project.DoesNotExist:
-            pass
-
-        Project.objects.update_or_create(
-            name="General Aviation Sales Data",
-            defaults={
-                "tech_stack": ["Python", "Pandas", "Excel"],
-                "description": (
-                    "Processed and analyzed the massive FAA aircraft registration "
-                    "database to identify trends in sales data among general "
-                    "aviation. Finished with a straightforward Excel dashboard "
-                    "for evaluating sales trends among the dataset."
-                ),
-                "link": "https://github.com/burnett013/ga_sales_data",
-            },
-        )
-
+        # Repo name: faa_kit_aircraft_main
         Project.objects.update_or_create(
             name="FAA Kit-built Aircraft Subset",
             defaults={
@@ -91,7 +75,8 @@ class Command(BaseCommand):
             },
         )
 
-        # ---------- Experience ----------
+        
+        # ---------- Experience Page ----------
         Experience.objects.update_or_create(
             role="Special Projects Analyst",
             company="Office of Veteran Success, USF",
@@ -186,7 +171,7 @@ class Command(BaseCommand):
             },
         )
 
-        # ---------- Blog ----------
+        # ---------- Blog Page ----------
         BlogPost.objects.update_or_create(
             slug="hello-world",
             defaults={
