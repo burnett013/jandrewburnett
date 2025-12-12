@@ -62,6 +62,7 @@
                     <h3 class="text-xl font-bold mb-2 text-app-text-main">Projects</h3>
                     {% for project in projects %}
                     <div class="mb-3">
+                        <!-- fix -->
                         <a href="{% url 'project_list' %}#project-{{ project.id }}"
                             class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{
                             project.name }}</a>
