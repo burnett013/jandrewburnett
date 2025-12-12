@@ -19,7 +19,7 @@
         <div class="p-6">
             <div class="prose max-w-none text-app-text-main mb-8">
                 <p class="text-lg mb-6">
-                    🎓 I recently earned my <strong>M.S. in Artificial Intelligence and Business Analytics (3.8
+                    ⭐ I recently earned my <strong>M.S. in Artificial Intelligence and Business Analytics (3.8
                         GPA)</strong>
                     from the University of South Florida’s Muma College of Business (August 2025). This degree built on
                     my
@@ -27,7 +27,7 @@
                     insights, strategy, and systems that make a difference.
                 </p>
 
-                <h3 class="text-xl font-bold text-app-text-main mb-2">💡 Who I Am</h3>
+                <h3 class="text-xl font-bold text-app-text-main mb-2">⭐ Who I Am</h3>
                 <p class="mb-6">
                     I’m someone who finds energy in solving complex problems and making sense of data. My approach to
                     analytics
@@ -37,7 +37,7 @@
                     miss.
                 </p>
 
-                <h3 class="text-xl font-bold text-app-text-main mb-2">⚙️ Values and Perspective</h3>
+                <h3 class="text-xl font-bold text-app-text-main mb-2">⭐ Values and Perspective</h3>
                 <p class="mb-6">
                     My path has been anything but ordinary. As a <strong>former Army combat medic</strong>, I learned to
                     stay
@@ -48,7 +48,7 @@
                     resilience, clarity, and commitment.
                 </p>
 
-                <h3 class="text-xl font-bold text-app-text-main mb-2">🌍 What Drives Me</h3>
+                <h3 class="text-xl font-bold text-app-text-main mb-2">⭐ What Drives Me</h3>
                 <p class="mb-6">
                     What motivates me most is the opportunity to do work that matters — blending data, design, and
                     decision-making
@@ -64,8 +64,7 @@
                     <div class="mb-3">
                         <!-- fix -->
                         <a href="{% url 'project_list' %}#project-{{ project.id }}"
-                            class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{
-                            project.name }}</a>
+                            class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{project.name}}</a>
                         <p class="text-app-text-muted text-sm">{{ project.description }}</p>
                     </div>
                     {% empty %}
@@ -76,9 +75,9 @@
                     <h3 class="text-xl font-bold mb-2 text-app-text-main">Latest Thoughts</h3>
                     {% for post in recent_posts %}
                     <div class="mb-2">
-                        <a href="#" class="text-app-accent hover:text-app-accent-hover hover:underline">{{ post.title
-                            }}</a>
-                        <span class="text-app-text-muted text-xs block">{{ post.published_date|date:"M d, Y" }}</span>
+                        <a href="{% url 'blog_list' %}"
+                            class="text-app-accent hover:text-app-accent-hover hover:underline">{{post.title}}</a>
+                        <span class="text-app-text-muted text-xs block">{{post.published_date|date:"M d, Y"}}</span>
                     </div>
                     {% empty %}
                     <p class="text-app-text-muted">No posts yet.</p>
