@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,7 +63,9 @@
 
     <footer class="bg-app-surface border-t border-app-border mt-auto">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-app-text-muted text-sm">© {% now "Y" %} | Andy Burnett | Made In Texas 🇨🇱<br>
+            <p class="text-center text-app-text-muted text-sm">© {% now "Y" %} | Andy Burnett | Made In Texas <img
+                    src="{% static 'core/images/texas-flag.png' %}" alt="Texas Flag"
+                    class="inline-block h-4 w-auto align-middle"><br>
                 <span class="text-xs opacity-50">v1.1 | Deployed: 12-12-2025 11:52</span>
             </p>
         </div>

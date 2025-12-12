@@ -3,3 +3,6 @@ railway ssh --project=64ee2761-3254-419e-983c-f05d16671f5a --environment=1e2b2a4
 
 Seed command
 python manage.py seed_data
+
+app password:
+jffd uknf zouf yfxn
