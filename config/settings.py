@@ -34,6 +34,11 @@ ALLOWED_HOSTS = [
     "jandrewburnett-production.up.railway.app",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.burnettbio.com",
+    "https://jandrewburnett-production.up.railway.app",
+]
+
 
 # Application definition
 
