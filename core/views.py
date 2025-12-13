@@ -34,6 +34,9 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from .forms import ContactForm
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ContactView(FormView):
     template_name = "core/contact.html"
@@ -56,8 +59,9 @@ class ContactView(FormView):
                 fail_silently=False,
             )
             messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
+            logger.info(f"Email sent successfully from {email}")
         except Exception as e:
             messages.error(self.request, "An error occurred while sending the message. Please try again later.")
-            print(f"Email Error: {e}")
+            logger.error(f"Email sending failed: {str(e)}", exc_info=True)
 
         return super().form_valid(form)
