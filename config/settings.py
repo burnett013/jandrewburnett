@@ -143,7 +143,7 @@ DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER', 'andyburnett013@gmail.com
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'core.email_backend.IPv4EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 465
     EMAIL_USE_TLS = False
