@@ -38,14 +38,6 @@ class IPv4SMTP_SSL(smtplib.SMTP_SSL):
                 if self.source_address:
                     sock.bind(self.source_address)
                 sock.connect(sa)
-                
-                # Wrap in SSL if needed (SMTP_SSL default behavior handles this in init/connect, but we are inside _get_socket)
-                # Wait, SMTP_SSL._get_socket returns a regular socket, then it wraps it. 
-                # Actually in Python 3.10+, SMTP_SSL uses context.wrap_socket inside usual flow? 
-                # Let's check Python source logic.
-                # SMTP_SSL.connect -> super().connect -> self._get_socket -> socket.create_connection...
-                # THEN it calls self.sock = self.context.wrap_socket(self.sock)
-                # So we just need to return the connected TCP socket here.
                 return sock
             except OSError as exc:
                 if sock is not None:
@@ -55,6 +47,12 @@ class IPv4SMTP_SSL(smtplib.SMTP_SSL):
             raise last_exc
         raise OSError("No IPv4 address found for %s" % host)
 
+class IPv4SMTP(smtplib.SMTP):
+    def _get_socket(self, host, port, timeout):
+        return self._get_socket_forced_ipv4(host, port, timeout)
+
+    _get_socket_forced_ipv4 = IPv4SMTP_SSL._get_socket_forced_ipv4
+
 class IPv4EmailBackend(EmailBackend):
     def open(self):
         """
@@ -63,23 +61,22 @@ class IPv4EmailBackend(EmailBackend):
         if self.connection:
             return False
         
-        connection_class = IPv4SMTP_SSL if self.use_ssl else smtplib.SMTP
-        # logic to swap class if SSL is used
+        connection_class = IPv4SMTP_SSL if self.use_ssl else IPv4SMTP
         
         try:
             self.connection = connection_class(self.host, self.port,
                                                timeout=self.timeout)
             
-            # If we are using our custom SSL class, it already forces IPv4 in connect()
-            # If we are NOT using SSL (unlikely given our settings), we would need a plain IPv4SMTP class too.
-            # But we are using port 465 SSL.
+            # For non-SSL (TLS), explicitly handle starttls if configured?
+            # Django's SMTP backend handles self.connection.starttls() in the email_backend code itself?
+            # No, correct: Django's EmailBackend.open() does:
+            # if self.use_tls: self.connection.starttls()
+            # But we are OVERRIDING open(). So we must include that logic.
             
-            if not self.use_ssl and self.use_tls:
-                # Logic for STARTTLS if we reverted? 
-                # For now let's assume we are sticking to Port 465 SSL as planned.
-                pass
-                
-            self.connection.echo = False  # disable echo
+            self.connection.echo = False
+            
+            if self.use_tls:
+                self.connection.starttls()
             
             if self.username and self.password:
                 self.connection.login(self.username, self.password)
