@@ -143,11 +143,13 @@ DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER', 'andyburnett013@gmail.com
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    EMAIL_BACKEND = 'core.email_backend.IPv4EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
+    # SendGrid configuration (bypasses blocked SMTP ports)
+    from sendgrid import SendGridAPIClient
+    from sendgrid.helpers.mail import Mail
+    
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.sendgrid.net'
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = False
-    EMAIL_TIMEOUT = 10  # Fail fast (10s) instead of hanging
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    EMAIL_HOST_USER = 'apikey'  # This is literal, not a variable
+    EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
