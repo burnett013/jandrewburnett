@@ -30,11 +30,11 @@ class BlogListView(ListView):
 
 from django.views.generic import FormView
 from django.urls import reverse_lazy
-from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from .forms import ContactForm
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -51,15 +51,22 @@ class ContactView(FormView):
         full_message = f"Message from {name} ({email}):\n\n{message}"
 
         try:
-            send_mail(
-                subject=f"Portfolio Contact: Message from {name}",
-                message=full_message,
+            # Use SendGrid HTTP API instead of SMTP
+            from sendgrid import SendGridAPIClient
+            from sendgrid.helpers.mail import Mail
+            
+            sg_message = Mail(
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=['andyburnett013@gmail.com'],
-                fail_silently=False,
+                to_emails='andyburnett013@gmail.com',
+                subject=f"Portfolio Contact: Message from {name}",
+                plain_text_content=full_message
             )
+            
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(sg_message)
+            
             messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
-            logger.info(f"Email sent successfully from {email}")
+            logger.info(f"Email sent successfully from {email} via SendGrid API (status: {response.status_code})")
         except Exception as e:
             messages.error(self.request, "An error occurred while sending the message. Please try again later.")
             logger.error(f"Email sending failed: {str(e)}", exc_info=True)

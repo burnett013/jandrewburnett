@@ -143,13 +143,6 @@ DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER', 'andyburnett013@gmail.com
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    # SendGrid configuration (bypasses blocked SMTP ports)
-    from sendgrid import SendGridAPIClient
-    from sendgrid.helpers.mail import Mail
-    
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.sendgrid.net'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'apikey'  # This is literal, not a variable
-    EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
+    # SendGrid will be used via HTTP API in views.py
+    # This console backend is just a fallback
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
