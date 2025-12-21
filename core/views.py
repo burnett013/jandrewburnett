@@ -59,7 +59,8 @@ class ContactView(FormView):
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 to_emails='andyburnett013@gmail.com',
                 subject=f"Portfolio Contact: Message from {name}",
-                plain_text_content=full_message
+                plain_text_content=full_message,
+                reply_to_list=[email]
             )
             
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
