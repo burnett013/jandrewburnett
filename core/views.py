@@ -53,15 +53,15 @@ class ContactView(FormView):
         try:
             # Use SendGrid HTTP API instead of SMTP
             from sendgrid import SendGridAPIClient
-            from sendgrid.helpers.mail import Mail
+            from sendgrid.helpers.mail import Mail, ReplyTo
             
             sg_message = Mail(
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 to_emails='andyburnett013@gmail.com',
                 subject=f"Portfolio Contact: Message from {name}",
-                plain_text_content=full_message,
-                reply_to_list=[email]
+                plain_text_content=full_message
             )
+            sg_message.reply_to = ReplyTo(email, name)
             
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(sg_message)
