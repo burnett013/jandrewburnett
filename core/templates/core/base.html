@@ -31,42 +31,43 @@
 
 <body class="bg-app-bg text-app-text-main font-sans flex flex-col min-h-screen">
 
-    <nav class="bg-app-surface shadow-sm border-b border-app-border">
+    <nav
+        class="sticky top-0 z-50 bg-app-surface/90 backdrop-blur-sm shadow-sm border-b border-app-border transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <a href="{% url 'home' %}"
-                        class="flex-shrink-0 flex items-center font-bold text-2xl text-app-accent">
+                        class="flex-shrink-0 flex items-center font-bold text-2xl text-app-accent hover:text-white transition-colors duration-300">
                         AB
                     </a>
                     <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                         <a href="{% url 'home' %}"
-                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Home</a>
                         <a href="{% url 'resume' %}"
-                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Resume</a>
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Resume</a>
                         <a href="{% url 'project_list' %}"
-                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Projects</a>
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Projects</a>
                         <a href="{% url 'blog_list' %}"
-                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Blog</a>
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Blog</a>
                         <a href="{% url 'contact' %}"
-                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                            class="border-transparent text-app-text-muted hover:border-app-accent hover:text-app-text-main inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-all duration-200">Contact</a>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto py-12 sm:px-6 lg:px-8">
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer class="bg-app-surface border-t border-app-border mt-auto">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-app-text-muted text-sm">© {% now "Y" %} | Andy Burnett | Made In Texas <img
-                    src="{% static 'core/images/texas-flag.png' %}" alt="Texas Flag"
-                    class="inline-block h-4 w-auto align-middle"><br>
-                <span class="text-xs opacity-50">v2.4 | Deployed: {% now "m-d-Y H:i" %}</span>
+    <footer class="bg-app-surface/50 border-t border-app-border mt-auto backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-app-text-muted text-sm">
+                © {% now "Y" %} | Andy Burnett
+                <span class="mx-2 text-app-border">|</span>
+                <span class="text-xs opacity-50 font-mono">v2.5 Deployed: {% now "m-d-Y" %}</span>
             </p>
         </div>
     </footer>

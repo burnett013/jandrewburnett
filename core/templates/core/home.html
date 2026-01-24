@@ -2,93 +2,128 @@
 {% load static %}
 
 {% block content %}
-<div class="bg-app-surface overflow-hidden shadow sm:rounded-lg border border-app-border">
-    <div class="px-4 py-5 sm:px-6 flex items-center space-x-6">
-        <img class="h-24 w-24 rounded-full border-2 border-app-accent object-cover"
-            src="{% static 'core/images/profile.jpg' %}" alt="Andy Burnett">
-        <div>
-            <h1 class="text-3xl font-bold leading-tight text-app-text-main">
-                Welcome, I'm Andy.
-            </h1>
-            <p class="mt-1 max-w-2xl text-sm text-app-text-muted">
-                Data Analyst | AI & Business Analytics Guru | Python Fanboy
-            </p>
+<div class="space-y-24">
+    <!-- Hero Section -->
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row items-start md:items-center space-y-8 md:space-y-0 md:space-x-12">
+            <img class="h-32 w-32 md:h-48 md:w-48 rounded-full border-4 border-app-surface shadow-2xl object-cover"
+                src="{% static 'core/images/profile.jpg' %}" alt="Andy Burnett">
+            <div class="max-w-3xl">
+                <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-app-text-main mb-6">
+                    Hello, I'm <span class="text-app-accent">Andy</span>.
+                </h1>
+                <p class="text-xl md:text-2xl text-app-text-muted leading-relaxed">
+                    Data Analyst, AI Strategist, and Python Developer. <br>
+                    I turn raw data into <span class="text-app-text-main font-semibold">clarity</span>, <span
+                        class="text-app-text-main font-semibold">insight</span>, and <span
+                        class="text-app-text-main font-semibold">action</span>.
+                </p>
+                <div class="mt-8 flex gap-4">
+                    <a href="{% url 'resume' %}"
+                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-app-text-main bg-app-accent hover:bg-app-accent-hover transition-all duration-300 transform hover:-translate-y-1">
+                        View Resume
+                    </a>
+                    <a href="{% url 'project_list' %}"
+                        class="inline-flex items-center px-6 py-3 border border-app-border text-base font-medium rounded-lg text-app-text-muted hover:text-app-text-main hover:border-app-text-main transition-all duration-300">
+                        See Work
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="border-t border-app-border px-4 py-5 sm:p-0">
-        <div class="p-6">
-            <div class="prose max-w-none text-app-text-main mb-8">
-                <p class="text-lg mb-6">
-                    ⭐ I recently earned my <strong>M.S. in Artificial Intelligence and Business Analytics (3.8
-                        GPA)</strong>
-                    from the University of South Florida’s Muma College of Business (August 2025). This degree built on
-                    my
-                    <strong>B.S. in Entrepreneurship (cum laude)</strong> and deepened my ability to turn raw data into
-                    insights, strategy, and systems that make a difference.
-                </p>
 
-                <h3 class="text-xl font-bold text-app-text-main mb-2">⭐ Who I Am</h3>
-                <p class="mb-6">
-                    I’m someone who finds energy in solving complex problems and making sense of data. My approach to
-                    analytics
-                    goes beyond numbers — it’s about storytelling, context, and building tools that help people make
-                    smarter decisions.
-                    I take pride in being both analytical and adaptable, always looking for connections others might
-                    miss.
+    <!-- About Section -->
+    <div class="px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-app-border pt-12">
+            <div class="lg:col-span-1">
+                <h2 class="text-2xl font-bold text-app-text-main mb-4 flex items-center">
+                    <span class="h-1 w-8 bg-app-accent mr-3 rounded-full"></span>
+                    About Me
+                </h2>
+            </div>
+            <div class="lg:col-span-2 text-lg text-app-text-muted space-y-6 leading-relaxed">
+                <p>
+                    I recently earned my <strong>M.S. in Artificial Intelligence and Business Analytics</strong> (3.8
+                    GPA) from the University of South Florida. This degree built on my background in Entrepreneurship
+                    and deepened my ability to build systems that matter.
                 </p>
-
-                <h3 class="text-xl font-bold text-app-text-main mb-2">⭐ Values and Perspective</h3>
-                <p class="mb-6">
-                    My path has been anything but ordinary. As a <strong>former Army combat medic</strong>, I learned to
-                    stay
-                    calm in uncertainty, value purpose over routine, and approach every challenge with focus and
-                    empathy.
-                    Having served in Afghanistan and recovered from a life-changing injury, I carry forward a mindset
-                    built on
-                    resilience, clarity, and commitment.
+                <p>
+                    My path has been unconventional. As a former <strong>Army combat medic</strong>, I learned to stay
+                    calm in uncertainty and value purpose over routine. Serving in Afghanistan taught me resilience, and
+                    recovering from a life-changing injury gave me a perspective grounded in clarity and commitment.
                 </p>
-
-                <h3 class="text-xl font-bold text-app-text-main mb-2">⭐ What Drives Me</h3>
-                <p class="mb-6">
-                    What motivates me most is the opportunity to do work that matters — blending data, design, and
-                    decision-making
-                    to bring clarity to complex challenges. Whether through building a data pipeline, crafting a
-                    visualization, or
-                    uncovering insights that guide strategy, I’m driven by curiosity, integrity, and impact.
+                <p>
+                    Today, I’m driven by the opportunity to do work that matters—blending data, design, and
+                    decision-making to solve complex problems.
                 </p>
             </div>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div class="border border-app-border rounded p-4 shadow-sm hover:shadow-md transition bg-app-bg">
-                    <h3 class="text-xl font-bold mb-2 text-app-text-main">Projects</h3>
-                    {% for project in projects %}
-                    <div class="mb-3">
-                        <!-- fix -->
-                        <a href="{% url 'project_list' %}#project-{{ project.id }}"
-                            class="text-app-accent font-semibold hover:text-app-accent-hover hover:underline">{{project.name}}</a>
-                        <p class="text-app-text-muted text-sm">{{ project.description }}</p>
+        </div>
+    </div>
+
+    <!-- Featured Section -->
+    <div class="px-4 sm:px-6 lg:px-8 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Projects Card -->
+            <div
+                class="group relative bg-app-surface/40 backdrop-blur-sm rounded-2xl p-8 border border-app-border hover:border-app-accent/50 transition-all duration-300">
+                <div
+                    class="absolute top-0 right-0 -mt-2 -mr-2 h-16 w-16 bg-gradient-to-br from-app-accent/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+
+                <h3 class="text-2xl font-bold text-app-text-main mb-6">Featured Projects</h3>
+                <div class="space-y-6">
+                    {% for project in projects|slice:":3" %}
+                    <div class="border-b border-app-border/50 last:border-0 pb-4 last:pb-0">
+                        <a href="{% url 'project_list' %}#project-{{ project.id }}" class="block group/link">
+                            <h4
+                                class="text-lg font-semibold text-app-accent group-hover/link:text-app-accent-hover transition-colors mb-1">
+                                {{ project.name }}
+                            </h4>
+                            <p class="text-sm text-app-text-muted line-clamp-2">{{ project.description }}</p>
+                        </a>
                     </div>
                     {% empty %}
-                    <p class="text-app-text-muted">Projects loading soon...</p>
+                    <p class="text-app-text-muted">Projects coming soon.</p>
                     {% endfor %}
                 </div>
-                <div class="border border-app-border rounded p-4 shadow-sm hover:shadow-md transition bg-app-bg">
-                    <h3 class="text-xl font-bold mb-2 text-app-text-main">Latest Thoughts</h3>
-                    {% for post in recent_posts %}
-                    <div class="mb-2">
-                        <a href="{% url 'blog_list' %}"
-                            class="text-app-accent hover:text-app-accent-hover hover:underline">{{post.title}}</a>
-                        <span class="text-app-text-muted text-xs block">{{post.published_date|date:"M d, Y"}}</span>
+                <div class="mt-6 pt-4">
+                    <a href="{% url 'project_list' %}"
+                        class="text-sm font-medium text-app-text-main hover:text-app-accent transition-colors flex items-center">
+                        View all projects <span class="ml-2">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Thoughts Card -->
+            <div
+                class="group relative bg-app-surface/40 backdrop-blur-sm rounded-2xl p-8 border border-app-border hover:border-app-accent/50 transition-all duration-300">
+                <div
+                    class="absolute top-0 right-0 -mt-2 -mr-2 h-16 w-16 bg-gradient-to-br from-app-accent/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+
+                <h3 class="text-2xl font-bold text-app-text-main mb-6">Latest Thoughts</h3>
+                <div class="space-y-6">
+                    {% for post in recent_posts|slice:":3" %}
+                    <div class="border-b border-app-border/50 last:border-0 pb-4 last:pb-0">
+                        <a href="{% url 'blog_list' %}" class="block group/link">
+                            <h4
+                                class="text-lg font-semibold text-app-accent group-hover/link:text-app-accent-hover transition-colors mb-1">
+                                {{ post.title }}
+                            </h4>
+                            <span class="text-xs font-mono text-app-text-muted/70">{{ post.published_date|date:"M d, Y"
+                                }}</span>
+                        </a>
                     </div>
                     {% empty %}
                     <p class="text-app-text-muted">No posts yet.</p>
                     {% endfor %}
                 </div>
-            </div>
-            <div class="mt-6">
-                <a href="{% url 'resume' %}"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-app-text-main bg-app-accent hover:bg-app-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-app-accent">
-                    View My Resume
-                </a>
+                <div class="mt-6 pt-4">
+                    <a href="{% url 'blog_list' %}"
+                        class="text-sm font-medium text-app-text-main hover:text-app-accent transition-colors flex items-center">
+                        Read blog <span class="ml-2">→</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

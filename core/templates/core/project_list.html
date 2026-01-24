@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-        <h1 class="text-4xl font-extrabold text-app-text-main sm:text-5xl sm:tracking-tight lg:text-6xl">
-            My Projects
+    <div class="text-left mb-16">
+        <h1 class="text-4xl font-extrabold text-app-text-main sm:text-5xl sm:tracking-tight lg:text-6xl mb-4">
+            Projects
         </h1>
-        <p class="mt-5 max-w-xl mx-auto text-xl text-app-text-muted">
+        <p class="max-w-2xl text-xl text-app-text-muted">
             A collection of my work in data analysis, software exploration, visualization, and AI.
         </p>
     </div>
@@ -14,41 +14,51 @@
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {% for project in projects %}
         <div id="project-{{ project.id }}"
-            class="flex flex-col bg-app-surface rounded-lg shadow-lg overflow-hidden border border-app-border hover:shadow-xl transition-shadow duration-300">
-            <div class="flex-1 p-6 flex flex-col justify-between">
+            class="group flex flex-col bg-app-surface/20 backdrop-blur-sm rounded-xl overflow-hidden border border-transparent hover:border-app-accent/30 hover:bg-app-surface/40 transition-all duration-300">
+            <div class="flex-1 p-8 flex flex-col justify-between">
                 <div class="flex-1">
-                    <a href="{{ project.link|default:'#' }}" class="block mt-2">
-                        <p
-                            class="text-xl font-semibold text-app-text-main hover:text-app-accent transition-colors duration-200">
+                    <div class="flex items-center justify-between">
+                        <h3
+                            class="text-xl font-bold text-app-text-main group-hover:text-app-accent transition-colors duration-200">
                             {{ project.name }}
-                        </p>
-                        <p class="mt-3 text-base text-app-text-muted">
-                            {{ project.description }}
-                        </p>
-                    </a>
-                </div>
-                <div class="mt-6 flex items-center">
-                    <div class="flex-shrink-0">
-                        <a href="{{ project.link|default:'#' }}" target="_blank" rel="noopener noreferrer"
-                            class="text-sm font-medium text-app-accent hover:text-app-accent-hover transition-colors duration-200">
-                            View Project &rarr;
+                        </h3>
+                        {% if project.link %}
+                        <a href="{{ project.link }}" target="_blank"
+                            class="text-app-text-muted hover:text-app-accent transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                </path>
+                            </svg>
                         </a>
+                        {% endif %}
                     </div>
+
+                    <p class="mt-4 text-base text-app-text-muted leading-relaxed">
+                        {{ project.description }}
+                    </p>
                 </div>
-                <div class="mt-4">
+
+                <div class="mt-8">
                     <div class="flex flex-wrap gap-2">
                         {% for tech in project.tech_stack %}
                         <span
-                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-app-bg text-app-text-muted border border-app-border">
+                            class="inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-app-surface text-app-text-muted border border-app-border/50">
                             {{ tech }}
                         </span>
                         {% endfor %}
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-app-border/30 flex items-center">
+                        <a href="{{ project.link|default:'#' }}" target="_blank" rel="noopener noreferrer"
+                            class="text-sm font-medium text-app-text-main group-hover:text-app-accent transition-colors duration-200 flex items-center">
+                            View Project <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
         {% empty %}
-        <div class="col-span-full text-center text-app-text-muted">
+        <div class="col-span-full text-center text-app-text-muted py-12">
             <p>No projects to display yet.</p>
         </div>
         {% endfor %}

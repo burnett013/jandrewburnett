@@ -6,3 +6,16 @@ python manage.py seed_data
 
 app password:
 jffd uknf zouf yfxn
+
+
+twiio recovery code
+N7H7K7R4L5JC2M1PZZZVEXSC
+
+
+Focus on creating vissualizations,
+
+machine learning
+
+SQL - Scripts and databases
+
+Gemini learning, 
