@@ -78,6 +78,19 @@ class Command(BaseCommand):
         
         # ---------- Experience Page ----------
         Experience.objects.update_or_create(
+            role="Data Analyst",
+            company="UT Tyler School of Nursing",
+            start_date=date(2026, 1, 12),
+            defaults={
+                "end_date": None,  # Present
+                "description_bullets": [
+                    "Leading data analysis initiatives for the School of Nursing.",
+                    "Developing insights to support strategic decision-making.",
+                ],
+            },
+        )
+
+        Experience.objects.update_or_create(
             role="Special Projects Analyst",
             company="Office of Veteran Success, USF",
             start_date=date(2024, 4, 1),
