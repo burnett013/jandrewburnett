@@ -6,11 +6,11 @@
     <!-- Hero Section -->
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row items-start md:items-center space-y-8 md:space-y-0 md:space-x-12">
-            <img class="h-32 w-32 md:h-48 md:w-48 rounded-full border-4 border-app-surface shadow-2xl object-cover"
+            <img class="h-32 w-32 md:h-48 md:w-48 rounded-full border-4 border-app-surface shadow-2xl shadow-app-glow object-cover"
                 src="{% static 'core/images/profile.jpg' %}" alt="Andy Burnett">
             <div class="max-w-3xl">
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-app-text-main mb-6">
-                    Hello, I'm <span class="text-app-accent">Andy</span>.
+                    Hello, I'm <span class="bg-clip-text text-transparent bg-app-gradient">Andy</span>.
                 </h1>
                 <p class="text-xl md:text-2xl text-app-text-muted leading-relaxed">
                     Data Analyst, AI Strategist, and Python Developer. <br>
@@ -20,7 +20,7 @@
                 </p>
                 <div class="mt-8 flex gap-4">
                     <a href="{% url 'resume' %}"
-                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-app-text-main bg-app-accent hover:bg-app-accent-hover transition-all duration-300 transform hover:-translate-y-1">
+                        class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm shadow-app-glow text-app-text-main bg-gradient-to-r from-app-accent-start to-app-accent-end hover:opacity-90 transition-all duration-300 transform hover:-translate-y-1">
                         View Resume
                     </a>
                     <a href="{% url 'project_list' %}"
@@ -37,7 +37,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 border-t border-app-border pt-12">
             <div class="lg:col-span-1">
                 <h2 class="text-2xl font-bold text-app-text-main mb-4 flex items-center">
-                    <span class="h-1 w-8 bg-app-accent mr-3 rounded-full"></span>
+                    <span class="h-1 w-8 bg-app-accent-secondary mr-3 rounded-full"></span>
                     About Me
                 </h2>
             </div>
@@ -76,7 +76,7 @@
                     <div class="border-b border-app-border/50 last:border-0 pb-4 last:pb-0">
                         <a href="{% url 'project_list' %}#project-{{ project.id }}" class="block group/link">
                             <h4
-                                class="text-lg font-semibold text-app-accent group-hover/link:text-app-accent-hover transition-colors mb-1">
+                                class="text-lg font-semibold text-app-accent-secondary group-hover/link:text-app-accent-start transition-colors mb-1">
                                 {{ project.name }}
                             </h4>
                             <p class="text-sm text-app-text-muted line-clamp-2">{{ project.description }}</p>
@@ -107,7 +107,7 @@
                     <div class="border-b border-app-border/50 last:border-0 pb-4 last:pb-0">
                         <a href="{% url 'blog_detail' post.slug %}" class="block group/link">
                             <h4
-                                class="text-lg font-semibold text-app-accent group-hover/link:text-app-accent-hover transition-colors mb-1">
+                                class="text-lg font-semibold text-app-accent-secondary group-hover/link:text-app-accent-start transition-colors mb-1">
                                 {{ post.title }}
                             </h4>
                             <span class="text-xs font-mono text-app-text-muted/70">{{ post.published_date|date:"M d, Y"
