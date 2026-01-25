@@ -28,6 +28,13 @@ class BlogListView(ListView):
     paginate_by = 5
     ordering = ['-published_date']
 
+from django.views.generic import DetailView
+
+class BlogDetailView(DetailView):
+    model = BlogPost
+    template_name = "core/blog_detail.html"
+    context_object_name = "post"
+
 from django.views.generic import FormView
 from django.urls import reverse_lazy
 from django.conf import settings

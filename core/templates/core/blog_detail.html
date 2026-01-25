@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<article class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 border-b border-app-border/40 pb-8">
+        <div class="flex items-center gap-4 text-sm text-app-text-muted mb-4">
+            <a href="{% url 'blog_list' %}" class="hover:text-app-accent transition-colors">← Back to Blog</a>
+            <span class="w-1 h-1 rounded-full bg-app-border"></span>
+            <time datetime="{{ post.published_date|date:'Y-m-d' }}" class="font-mono text-app-accent">
+                {{ post.published_date|date:"F d, Y" }}
+            </time>
+        </div>
+
+        <h1 class="text-4xl font-extrabold text-app-text-main sm:text-5xl leading-tight mb-6">
+            {{ post.title }}
+        </h1>
+    </div>
+
+    <div class="prose prose-invert prose-lg max-w-none text-app-text-muted leading-relaxed">
+        {{ post.content|safe }}
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-app-border/40">
+        <a href="{% url 'blog_list' %}"
+            class="inline-flex items-center text-app-text-main hover:text-app-accent transition-colors font-medium">
+            ← Back to all posts
+        </a>
+    </div>
+</article>
+{% endblock %}

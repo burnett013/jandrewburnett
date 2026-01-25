@@ -105,7 +105,7 @@
                 <div class="space-y-6">
                     {% for post in recent_posts|slice:":3" %}
                     <div class="border-b border-app-border/50 last:border-0 pb-4 last:pb-0">
-                        <a href="{% url 'blog_list' %}" class="block group/link">
+                        <a href="{% url 'blog_detail' post.slug %}" class="block group/link">
                             <h4
                                 class="text-lg font-semibold text-app-accent group-hover/link:text-app-accent-hover transition-colors mb-1">
                                 {{ post.title }}

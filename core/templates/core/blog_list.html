@@ -24,14 +24,14 @@
                 </div>
 
                 <h3 class="text-2xl font-bold text-app-text-main mb-4 group-hover:text-app-accent transition-colors">
-                    <a href="#">{{ post.title }}</a>
+                    <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
                 </h3>
 
                 <p class="text-lg text-app-text-muted leading-relaxed mb-6">
                     {{ post.content|truncatewords:40 }}
                 </p>
 
-                <a href="#"
+                <a href="{% url 'blog_detail' post.slug %}"
                     class="inline-flex items-center text-sm font-medium text-app-text-main hover:text-app-accent transition-colors">
                     Read article <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                 </a>
