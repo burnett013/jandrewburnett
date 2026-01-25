@@ -186,6 +186,26 @@ class Command(BaseCommand):
 
         # ---------- Blog Page ----------
         BlogPost.objects.update_or_create(
+            slug="good-data-practice",
+            defaults={
+                "title": "Clean Data: The Foundation of Valid Analysis",
+                "content": (
+                    "Why \"Good\" Data Matters More Than Complex Algorithms. "
+                    "In the rush to apply machine learning and advanced statistics, the foundational step of data cleaning is often overlooked. "
+                    "However, as the old adage goes: Garbage In, Garbage Out. "
+                    "<br><br>"
+                    "Having worked with large datasets ranging from FAA aircraft registries to nursing workforce surveys, I've learned that 80% of the work is just getting the data ready. "
+                    "Without rigorous cleaning—handling missing values, standardizing formats, and verifying outliers—even the most sophisticated model will yield misleading results."
+                    "<br><br>"
+                    "I've compiled a short guide on some best practices for data cleaning, specifically for DNP projects."
+                    "<br><br>"
+                    "<a href='/static/core/docs/p1_good_data.docx' class='text-app-accent hover:underline font-bold' download>Download the full guide (DOCX)</a>"
+                ),
+            },
+        )
+
+        
+        BlogPost.objects.update_or_create(
             slug="hello-world",
             defaults={
                 "title": "Hello World: My Journey into Python",
