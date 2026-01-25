@@ -72,10 +72,23 @@ Whenever you modify `core/management/commands/seed_data.py` (e.g., adding a new 
 2.  **Wait for the deployment** to finish on Railway (check the "Deployments" tab).
 
 3.  **Run the seed command on production:**
-    You can do this in Railway by selecting and right-clicking the Postgres service, selecting "Copy SSH Command." Lastly, paste the following command into the terminal to run the seed command on production:
-    ```bash
-    python manage.py seed_data
-    ```
+    The following steps are critical because the production database is separate from your local one.
+
+    1.  **Get SSH Access**:
+        - Go to your Railway dashboard.
+        - Right-click the **jandrewburnett** (Django) service.
+        - Select **Copy SSH Command**.
+
+    2.  **Connect**:
+        - Paste the copied command into a new terminal window on your machine.
+        - Wait until you see the prompt starting with `root@...`.
+
+    3.  **Update Data**:
+        - Run the following commands in order:
+        ```bash
+        python manage.py migrate
+        python manage.py seed_data
+        ```
 
 ## 📂 Project Structure
 
