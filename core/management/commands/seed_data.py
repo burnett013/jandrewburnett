@@ -199,7 +199,7 @@ class Command(BaseCommand):
                     "<br><br>"
                     "I've compiled a short guide on some best practices for data cleaning, specifically for DNP projects."
                     "<br><br>"
-                    "<a href='/static/core/docs/p1_good_data.docx' class='text-app-accent hover:underline font-bold' download>Download the full guide (DOCX)</a>"
+                    "<a href='/static/core/docs/p1_good_data.pdf' class='text-app-accent hover:underline font-bold' download>Download the full guide (PDF)</a>"
                 ),
             },
         )
