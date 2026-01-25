@@ -10,7 +10,8 @@
                 src="{% static 'core/images/profile.jpg' %}" alt="Andy Burnett">
             <div class="max-w-3xl">
                 <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-app-text-main mb-6">
-                    Hello, I'm <span class="bg-clip-text text-transparent bg-app-gradient">Andy</span>.
+                    Hello, I'm <span
+                        class="bg-clip-text text-transparent bg-gradient-to-r from-app-accent-start to-app-accent-end">Andy</span>.
                 </h1>
                 <p class="text-xl md:text-2xl text-app-text-muted leading-relaxed">
                     Data Analyst, AI Strategist, and Python Developer. <br>
@@ -114,7 +115,7 @@
                     <div class="border-b border-app-border/50 last:border-0 pb-4 last:pb-0">
                         <a href="{% url 'blog_detail' post.slug %}" class="block group/link">
                             <h4
-                                class="text-lg font-semibold text-app-accent-secondary group-hover/link:text-app-accent-start transition-colors mb-1">
+                                class="text-lg font-semibold text-app-accent group-hover/link:text-app-accent-hover transition-colors mb-1">
                                 {{ post.title }}
                             </h4>
                             <span class="text-xs font-mono text-app-text-muted/70">{{ post.published_date|date:"M d, Y"
