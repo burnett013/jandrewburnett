@@ -77,7 +77,8 @@ class ContactView(FormView):
                 url = "https://api.resend.com/emails"
                 headers = {
                     "Authorization": f"Bearer {resend_key}",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "User-Agent": "Django-Portfolio/1.0"
                 }
                 
                 payload = {
