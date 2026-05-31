@@ -8,4 +8,5 @@ urlpatterns = [
     path('blog/', views.BlogListView.as_view(), name='blog_list'), # List page
     path('blog/<slug:slug>/', views.BlogDetailView.as_view(), name='blog_detail'), # Detail page
     path('contact/', views.ContactView.as_view(), name='contact'),
+    path('api/chat/', views.ChatBotView.as_view(), name='chat_api'),
 ]

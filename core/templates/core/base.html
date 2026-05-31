@@ -17,11 +17,30 @@
                         'app-surface': '#262626', // Slightly lighter background
                         'app-text-main': '#F2F2F2', // White text
                         'app-text-muted': '#A8A8A8', // Light gray text
-                        'app-accent': '#FC6523', // Orange accent
+                        'app-accent': '#FC6523', // Orange accent (keep for backward compat)
+                        'app-accent-start': '#FC6523', // Gradient Start (Orange)
+                        'app-accent-end': '#FF0059', // Gradient End (Pink/Red)
+                        'app-accent-secondary': '#FFFF00', // Yellow Secondary Accent
                         'app-accent-hover': '#C2381E', // Darker orange on hover
                         'app-border': '#3A3A3A', // Dark border
                         'app-success': '#3CCF91', // Green success
                         'app-danger': '#E63946', // Red error
+                    },
+                    backgroundImage: {
+                        'app-gradient': 'linear-gradient(to right, #FC6523, #FF0059)',
+                    },
+                    boxShadow: {
+                        'app-glow': '0 0 20px rgba(252, 101, 35, 0.5)',
+                        'app-glow-secondary': '0 0 15px rgba(255, 255, 0, 0.3)',
+                    },
+                    keyframes: {
+                        'fade-in': {
+                            '0%': { opacity: '0', transform: 'translateY(8px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fade-in 0.25s ease-out forwards'
                     }
                 }
             }
@@ -72,6 +91,247 @@
         </div>
     </footer>
 
+    <!-- Chatbot Floating Button -->
+    <button id="chatbot-toggle" 
+            class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-gradient-to-r from-[#FC6523] to-[#FF0059] text-white rounded-full shadow-2xl hover:shadow-[0_0_20px_rgba(252,101,35,0.7)] transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none"
+            aria-label="Ask Andy's AI Assistant">
+        <svg id="chatbot-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+        </svg>
+    </button>
+
+    <!-- Chatbot Panel -->
+    <div id="chatbot-panel" 
+         class="fixed bottom-24 right-6 w-[340px] sm:w-[380px] h-[480px] max-h-[75vh] bg-app-surface/95 backdrop-blur-md border border-app-border rounded-2xl shadow-2xl flex flex-col z-50 transition-all duration-300 transform scale-0 translate-y-4 opacity-0 origin-bottom-right">
+        <!-- Header -->
+        <div class="p-4 border-b border-app-border flex items-center justify-between bg-gradient-to-r from-app-surface to-app-surface/90 rounded-t-2xl">
+            <div class="flex items-center gap-3">
+                <div class="relative w-8 h-8 rounded-full bg-gradient-to-r from-[#FC6523] to-[#FF0059] flex items-center justify-center text-xs font-bold text-white shadow-md">
+                    AB
+                    <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-app-success border-2 border-app-surface rounded-full animate-pulse"></span>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-app-text-main">Andy's AI Assistant</h3>
+                    <p class="text-[11px] text-app-success font-medium">Online</p>
+                </div>
+            </div>
+            <button id="chatbot-close" class="text-app-text-muted hover:text-app-text-main transition-colors p-1 rounded-lg hover:bg-app-border/40 focus:outline-none" aria-label="Close Chat">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Messages List -->
+        <div id="chatbot-messages" class="flex-grow p-4 overflow-y-auto space-y-4 text-sm scrollbar-thin scrollbar-thumb-app-border scrollbar-track-transparent">
+            <!-- Welcome Message -->
+            <div class="flex gap-3 items-start animate-fade-in">
+                <div class="w-6 h-6 rounded-full bg-app-border/60 flex items-center justify-center text-[10px] font-bold text-app-text-main flex-shrink-0">AI</div>
+                <div class="bg-app-border/30 text-app-text-main px-3.5 py-2.5 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed">
+                    Hi! 👋 I'm Andy's AI Portfolio Assistant. Ask me anything about Andy's resume, work history, projects, or background!
+                </div>
+            </div>
+            
+            <!-- Suggestions Grid -->
+            <div id="chatbot-suggestions" class="pl-9 pr-4 py-2 space-y-2">
+                <p class="text-[11px] text-app-text-muted font-medium mb-1">Suggested questions:</p>
+                <button class="suggestion-btn block w-full text-left px-3 py-1.5 bg-app-border/20 hover:bg-app-border/50 text-[12px] text-app-text-main border border-app-border/40 rounded-xl transition-all duration-200">
+                    What is Andy's current role?
+                </button>
+                <button class="suggestion-btn block w-full text-left px-3 py-1.5 bg-app-border/20 hover:bg-app-border/50 text-[12px] text-app-text-main border border-app-border/40 rounded-xl transition-all duration-200">
+                    Tell me about his AI background.
+                </button>
+                <button class="suggestion-btn block w-full text-left px-3 py-1.5 bg-app-border/20 hover:bg-app-border/50 text-[12px] text-app-text-main border border-app-border/40 rounded-xl transition-all duration-200">
+                    What military experience does he have?
+                </button>
+            </div>
+        </div>
+
+        <!-- Form Input -->
+        <form id="chatbot-form" class="p-3 border-t border-app-border bg-app-surface/50 flex gap-2 rounded-b-2xl">
+            <input id="chatbot-input" 
+                   type="text" 
+                   placeholder="Ask about Andy..." 
+                   class="flex-grow px-3.5 py-2 text-sm bg-app-bg border border-app-border rounded-xl placeholder-app-text-muted text-app-text-main focus:outline-none focus:ring-1 focus:ring-app-accent focus:border-app-accent"
+                   autocomplete="off">
+            <button type="submit" 
+                    class="flex items-center justify-center p-2 rounded-xl bg-gradient-to-r from-[#FC6523] to-[#FF0059] text-white hover:opacity-90 transition-all duration-200 focus:outline-none"
+                    aria-label="Send message">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleBtn = document.getElementById('chatbot-toggle');
+            const panel = document.getElementById('chatbot-panel');
+            const closeBtn = document.getElementById('chatbot-close');
+            const form = document.getElementById('chatbot-form');
+            const input = document.getElementById('chatbot-input');
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const suggestionsGrid = document.getElementById('chatbot-suggestions');
+            
+            let chatHistory = [];
+            let isOpen = false;
+
+            function toggleChat() {
+                isOpen = !isOpen;
+                if (isOpen) {
+                    panel.classList.remove('scale-0', 'translate-y-4', 'opacity-0');
+                    panel.classList.add('scale-100', 'translate-y-0', 'opacity-100');
+                    document.getElementById('chatbot-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
+                    input.focus();
+                } else {
+                    panel.classList.remove('scale-100', 'translate-y-0', 'opacity-100');
+                    panel.classList.add('scale-0', 'translate-y-4', 'opacity-0');
+                    document.getElementById('chatbot-icon').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>';
+                }
+            }
+
+            toggleBtn.addEventListener('click', toggleChat);
+            closeBtn.addEventListener('click', toggleChat);
+
+            function appendMessage(sender, text, isMarkdown = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'flex gap-3 items-start animate-fade-in';
+                
+                const isUser = sender === 'user';
+                
+                const avatar = isUser 
+                    ? '<div class="w-6 h-6 rounded-full bg-gradient-to-r from-[#FC6523] to-[#FF0059] flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0">ME</div>'
+                    : '<div class="w-6 h-6 rounded-full bg-app-border/60 flex items-center justify-center text-[10px] font-bold text-app-text-main flex-shrink-0">AI</div>';
+                
+                const bubbleBg = isUser 
+                    ? 'bg-app-accent/20 border border-app-accent/30 text-app-text-main rounded-tr-none'
+                    : 'bg-app-border/30 text-app-text-main rounded-tl-none';
+                    
+                const content = isMarkdown ? formatMarkdown(text) : escapeHtml(text);
+                
+                messageDiv.innerHTML = `
+                    ${isUser ? '' : avatar}
+                    <div class="${bubbleBg} px-3.5 py-2.5 rounded-2xl max-w-[85%] leading-relaxed break-words">
+                        ${content}
+                    </div>
+                    ${isUser ? avatar : ''}
+                `;
+                
+                if (isUser) {
+                    messageDiv.classList.add('justify-end');
+                }
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            function escapeHtml(text) {
+                return text
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+
+            function formatMarkdown(text) {
+                if (!text) return '';
+                let escaped = escapeHtml(text);
+                
+                // Bold: **text**
+                escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                
+                // Bullet points: * item
+                escaped = escaped.replace(/(?:^|<br>)[*\-]\s+(.*?)(?=<br>|$)/g, '<div class="flex gap-2 items-start mt-1 pl-2"><span>•</span><span>$1</span></div>');
+                
+                // Line breaks
+                escaped = escaped.replace(/\n/g, '<br>');
+                
+                return escaped;
+            }
+
+            function showTypingIndicator() {
+                const indicatorDiv = document.createElement('div');
+                indicatorDiv.id = 'chatbot-typing';
+                indicatorDiv.className = 'flex gap-3 items-start';
+                indicatorDiv.innerHTML = `
+                    <div class="w-6 h-6 rounded-full bg-app-border/60 flex items-center justify-center text-[10px] font-bold text-app-text-main flex-shrink-0">AI</div>
+                    <div class="bg-app-border/30 text-app-text-main px-3.5 py-2.5 rounded-2xl rounded-tl-none flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-app-text-muted rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+                        <span class="w-1.5 h-1.5 bg-app-text-muted rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+                        <span class="w-1.5 h-1.5 bg-app-text-muted rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+                    </div>
+                `;
+                messagesContainer.appendChild(indicatorDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const indicator = document.getElementById('chatbot-typing');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+
+            async function sendQuery(messageText) {
+                if (!messageText) return;
+                
+                if (suggestionsGrid) {
+                    suggestionsGrid.classList.add('hidden');
+                }
+                
+                appendMessage('user', messageText);
+                showTypingIndicator();
+                
+                try {
+                    const response = await fetch('/api/chat/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            message: messageText,
+                            history: chatHistory
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    removeTypingIndicator();
+                    
+                    if (data.response) {
+                        appendMessage('ai', data.response, true);
+                        chatHistory.push({ role: 'user', text: messageText });
+                        chatHistory.push({ role: 'model', text: data.response });
+                        if (chatHistory.length > 20) {
+                            chatHistory = chatHistory.slice(-20);
+                        }
+                    } else {
+                        appendMessage('ai', "Sorry, I encountered an error. Please try again.");
+                    }
+                } catch (err) {
+                    removeTypingIndicator();
+                    appendMessage('ai', "Sorry, I couldn't reach the server. Please check your connection.");
+                    console.error(err);
+                }
+            }
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const val = input.value.trim();
+                if (!val) return;
+                input.value = '';
+                sendQuery(val);
+            });
+
+            document.querySelectorAll('.suggestion-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const queryText = this.innerText.trim();
+                    sendQuery(queryText);
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

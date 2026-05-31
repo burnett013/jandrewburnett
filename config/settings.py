@@ -36,6 +36,9 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://www.burnettbio.com",
+    "https://burnettbio.com",
+    "https://www.jandrewburnett.com",
+    "https://jandrewburnett.com",
     "https://jandrewburnett-production.up.railway.app",
 ]
 
