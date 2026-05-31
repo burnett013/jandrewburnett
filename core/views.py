@@ -82,7 +82,7 @@ class ContactView(FormView):
                 
                 payload = {
                     "from": "Portfolio Contact <onboarding@resend.dev>",
-                    "to": ["andyburnett013@gmail.com"],
+                    "to": [settings.DEFAULT_FROM_EMAIL],
                     "subject": f"Portfolio Contact: Message from {name}",
                     "html": f"<p><strong>Name:</strong> {name}</p><p><strong>Email:</strong> {email}</p><p><strong>Message:</strong></p><p>{message}</p>",
                     "reply_to": email
@@ -106,7 +106,7 @@ class ContactView(FormView):
                 
                 sg_message = Mail(
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    to_emails='andyburnett013@gmail.com',
+                    to_emails=settings.DEFAULT_FROM_EMAIL,
                     subject=f"Portfolio Contact: Message from {name}",
                     plain_text_content=full_message
                 )
@@ -123,9 +123,15 @@ class ContactView(FormView):
         except Exception as e:
             error_details = str(e)
             try:
-                from python_http_client.exceptions import HTTPError
-                if isinstance(e, HTTPError):
-                    error_details = f"SendGrid HTTP Error {e.status_code}: {e.body.decode('utf-8')}"
+                import urllib.error
+                if isinstance(e, urllib.error.HTTPError):
+                    # Read the response body from Resend API error
+                    error_body = e.read().decode('utf-8')
+                    error_details = f"Resend HTTP Error {e.code}: {error_body}"
+                else:
+                    from python_http_client.exceptions import HTTPError
+                    if isinstance(e, HTTPError):
+                        error_details = f"SendGrid HTTP Error {e.status_code}: {e.body.decode('utf-8')}"
             except Exception:
                 pass
             
