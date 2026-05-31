@@ -85,8 +85,16 @@ class ContactView(FormView):
             messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
             logger.info(f"Email sent successfully from {email} via SendGrid API (status: {response.status_code})")
         except Exception as e:
+            error_details = str(e)
+            try:
+                from python_http_client.exceptions import HTTPError
+                if isinstance(e, HTTPError):
+                    error_details = f"SendGrid HTTP Error {e.status_code}: {e.body.decode('utf-8')}"
+            except Exception:
+                pass
+            
             messages.error(self.request, "An error occurred while sending the message. Please try again later.")
-            logger.error(f"Email sending failed: {str(e)}", exc_info=True)
+            logger.error(f"Email sending failed: {error_details}", exc_info=True)
 
         return super().form_valid(form)
 
