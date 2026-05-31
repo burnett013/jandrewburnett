@@ -79,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.google_analytics',
             ],
         },
     },
@@ -152,3 +153,6 @@ else:
     # SendGrid will be used via HTTP API in views.py
     # This console backend is just a fallback
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Google Analytics Integration
+GOOGLE_ANALYTICS_ID = os.environ.get('GOOGLE_ANALYTICS_ID', '')
