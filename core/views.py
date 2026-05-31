@@ -67,23 +67,59 @@ class ContactView(FormView):
         full_message = f"Message from {name} ({email}):\n\n{message}"
 
         try:
-            # Use SendGrid HTTP API to bypass Railway SMTP port block
-            from sendgrid import SendGridAPIClient
-            from sendgrid.helpers.mail import Mail, ReplyTo
+            resend_key = os.environ.get('RESEND_API_KEY')
+            sendgrid_key = os.environ.get('SENDGRID_API_KEY')
             
-            sg_message = Mail(
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to_emails='andyburnett013@gmail.com',
-                subject=f"Portfolio Contact: Message from {name}",
-                plain_text_content=full_message
-            )
-            sg_message.reply_to = ReplyTo(email, name)
-            
-            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-            response = sg.send(sg_message)
-            
-            messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
-            logger.info(f"Email sent successfully from {email} via SendGrid API (status: {response.status_code})")
+            if resend_key:
+                import urllib.request
+                import json
+                
+                url = "https://api.resend.com/emails"
+                headers = {
+                    "Authorization": f"Bearer {resend_key}",
+                    "Content-Type": "application/json"
+                }
+                
+                payload = {
+                    "from": "Portfolio Contact <onboarding@resend.dev>",
+                    "to": ["andyburnett013@gmail.com"],
+                    "subject": f"Portfolio Contact: Message from {name}",
+                    "html": f"<p><strong>Name:</strong> {name}</p><p><strong>Email:</strong> {email}</p><p><strong>Message:</strong></p><p>{message}</p>",
+                    "reply_to": email
+                }
+                
+                req = urllib.request.Request(
+                    url, 
+                    data=json.dumps(payload).encode('utf-8'), 
+                    headers=headers, 
+                    method='POST'
+                )
+                with urllib.request.urlopen(req) as response:
+                    res_body = response.read().decode('utf-8')
+                    logger.info(f"Email sent successfully from {email} via Resend API: {res_body}")
+                
+                messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
+                
+            elif sendgrid_key:
+                from sendgrid import SendGridAPIClient
+                from sendgrid.helpers.mail import Mail, ReplyTo
+                
+                sg_message = Mail(
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to_emails='andyburnett013@gmail.com',
+                    subject=f"Portfolio Contact: Message from {name}",
+                    plain_text_content=full_message
+                )
+                sg_message.reply_to = ReplyTo(email, name)
+                
+                sg = SendGridAPIClient(sendgrid_key)
+                response = sg.send(sg_message)
+                
+                messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
+                logger.info(f"Email sent successfully from {email} via SendGrid API (status: {response.status_code})")
+                
+            else:
+                raise Exception("No email service API keys configured (missing RESEND_API_KEY and SENDGRID_API_KEY)")
         except Exception as e:
             error_details = str(e)
             try:
