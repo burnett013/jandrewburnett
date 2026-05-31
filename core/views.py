@@ -67,34 +67,23 @@ class ContactView(FormView):
         full_message = f"Message from {name} ({email}):\n\n{message}"
 
         try:
-            # Use SendGrid HTTP API instead of SMTP
-            from sendgrid import SendGridAPIClient
-            from sendgrid.helpers.mail import Mail, ReplyTo
+            # Use Django's built-in EmailMessage class (uses configured SMTP backend in settings.py)
+            from django.core.mail import EmailMessage
             
-            sg_message = Mail(
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to_emails='andyburnett013@gmail.com',
+            email_msg = EmailMessage(
                 subject=f"Portfolio Contact: Message from {name}",
-                plain_text_content=full_message
+                body=full_message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=['andyburnett013@gmail.com'],
+                reply_to=[email]
             )
-            sg_message.reply_to = ReplyTo(email, name)
-            
-            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-            response = sg.send(sg_message)
+            email_msg.send()
             
             messages.success(self.request, "Message sent successfully! I'll get back to you soon.")
-            logger.info(f"Email sent successfully from {email} via SendGrid API (status: {response.status_code})")
+            logger.info(f"Email sent successfully from {email} via SMTP")
         except Exception as e:
-            error_details = str(e)
-            try:
-                from python_http_client.exceptions import HTTPError
-                if isinstance(e, HTTPError):
-                    error_details = f"SendGrid HTTP Error {e.status_code}: {e.body.decode('utf-8')}"
-            except Exception:
-                pass
-            
             messages.error(self.request, "An error occurred while sending the message. Please try again later.")
-            logger.error(f"Email sending failed: {error_details}", exc_info=True)
+            logger.error(f"Email sending failed: {str(e)}", exc_info=True)
 
         return super().form_valid(form)
 
